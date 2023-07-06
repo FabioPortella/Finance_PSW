@@ -14,6 +14,7 @@ class Conta(models.Model):
         ('NU', 'Nubank'),
         ('CE', 'Caixa Econômica'),
         ('BB', 'Banco do Brasil'),
+        ('SA', 'Santander'),
     )
 
     tipo_choices = (

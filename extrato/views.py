@@ -36,7 +36,7 @@ def novo_valor(request):
 
         valores.save()
 
-        #TODO: Mensagem prodessada de acordo com o tipo
-        messages.add_message(request, constants.SUCCESS, "Entrada / Saida cadastrada com sucesso")
+        if tipo == 'E': messages.add_message(request, constants.SUCCESS, "Entrada cadastrada com sucesso")
+        else: messages.add_message(request, constants.SUCCESS, "Saida cadastrada com sucesso")
 
         return redirect('/extrato/novo_valor')
