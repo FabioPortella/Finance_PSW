@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'perfil',
     'extrato',
     'planejamento',
+    'contas',
 
     # Django apps
     'django.contrib.admin',

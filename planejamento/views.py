@@ -1,6 +1,8 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+# from django.contrib import messages
+# from django.contrib.messages import constants
 
 import json
 from perfil.models import Categoria
@@ -20,14 +22,16 @@ def update_valor_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     categoria.valor_planejamento = novo_valor
     categoria.save()
-    #TODO: message: salvo com sucesso.
+    # TODO: message: salvo com sucesso.
+    # messages.add_message(request, constants.SUCCESS, f"Valor da categoria {categoria.categoria} foi alterado com sucesso")
+    # return redirect('/planejamento/definir_planejamento/')
 
     return JsonResponse({'status': 'Sucesso'})
 
 
 def ver_planejamento(request):
     categorias = Categoria.objects.all()
-    #TODO: Realizar bara com total
+    # TODO: Realizar barra com total
     context = {
         'categorias': categorias
         }

@@ -12,6 +12,11 @@
 
     <div class="container">
         <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
         <br>
         <p class="fonte-destaque">Definir planejamento</p>
         <div class="card">
