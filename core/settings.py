@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     # Meus apps
     'perfil',
     'extrato',
+    'planejamento',
 
     # Django apps
     'django.contrib.admin',
