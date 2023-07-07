@@ -20,5 +20,15 @@ def update_valor_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     categoria.valor_planejamento = novo_valor
     categoria.save()
+    #TODO: message: salvo com sucesso.
 
     return JsonResponse({'status': 'Sucesso'})
+
+
+def ver_planejamento(request):
+    categorias = Categoria.objects.all()
+    #TODO: Realizar bara com total
+    context = {
+        'categorias': categorias
+        }
+    return render(request, 'ver_planejamento.html', context)
