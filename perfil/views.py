@@ -4,15 +4,30 @@ from django.contrib import messages
 from django.contrib.messages import constants
 from .models import Conta, Categoria
 from extrato.models import Valores
-from .utils import calcula_total
+from .utils import calcula_total, calcula_equilibrio_financeiro
+from datetime import datetime
 
 
 def home(request):
+    valores = Valores.objects.filter(data__month = datetime.now().month)
+    entradas = valores.filter(tipo='E')
+    saidas = valores.filter(tipo='S')
+    total_entradas = calcula_total(entradas, 'valor')
+    total_saidas = calcula_total(saidas, 'valor')
+
     contas = Conta.objects.all()
     total_contas = calcula_total(contas, 'valor')
+
+    perc_essenciais, perc_nao_essenciais = calcula_equilibrio_financeiro()
+
     context = {
         'contas': contas, 
-        'total_contas': total_contas,}
+        'total_contas': total_contas,
+        'total_entradas': total_entradas,
+        'total_saidas': total_saidas,
+        'perc_essenciais': int(perc_essenciais),
+        'perc_nao_essenciais': int(perc_nao_essenciais),
+        }
     return render(request, 'home.html', context)
 
 
@@ -89,6 +104,12 @@ def update_categoria(request, id):
 def dashboard(request):
     dados = {}
     categorias = Categoria.objects.all()
+
+    # for categoria in categorias:
+    #    dados[categoria.categoria] = Valores.objects.filter(
+    #       categoria=categoria).aggregate(
+    #       Sum('valor'))['valor__sum']
+
     for categoria in categorias:
         total = 0
         valores = Valores.objects.filter(categoria=categoria)         
