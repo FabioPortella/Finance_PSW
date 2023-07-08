@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
 from .models import Conta, Categoria
+from extrato.models import Valores
 from .utils import calcula_total
 
 
@@ -83,3 +84,21 @@ def update_categoria(request, id):
     categoria.essencial = not categoria.essencial
     categoria.save()
     return redirect('/perfil/gerenciar/')
+
+
+def dashboard(request):
+    dados = {}
+    categorias = Categoria.objects.all()
+    for categoria in categorias:
+        total = 0
+        valores = Valores.objects.filter(categoria=categoria)         
+        for v in valores:
+            total = total + v.valor
+
+        dados[categoria.categoria] = total
+   
+    context = {
+        'labels': list(dados.keys()),
+        'values': list(dados.values()),
+    }
+    return render(request, 'dashboard.html', context)

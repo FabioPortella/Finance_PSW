@@ -7,6 +7,10 @@ class ContaPagar(models.Model):
     descricao = models.TextField()
     valor = models.FloatField()
     dia_pagamento = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'Conta a pagar'
+        verbose_name_plural = 'Contas a pagar'
     
     def __str__(self):
         return self.titulo
