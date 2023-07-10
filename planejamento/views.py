@@ -1,12 +1,10 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-# from django.contrib import messages
-# from django.contrib.messages import constants
 
 import json
+import sweetify
 from perfil.models import Categoria
-
 
 
 def definir_planejamento(request):
@@ -22,9 +20,8 @@ def update_valor_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     categoria.valor_planejamento = novo_valor
     categoria.save()
-    # TODO: message: salvo com sucesso.
-    # messages.add_message(request, constants.SUCCESS, f"Valor da categoria {categoria.categoria} foi alterado com sucesso")
-    # return redirect('/planejamento/definir_planejamento/')
+    # TODO: Emitir mensagem de sucesso na alteração da categoria.
+    # sweetify.success(request, f'Valor da categoria {categoria.categoria} foi alterado com sucesso')
 
     return JsonResponse({'status': 'Sucesso'})
 

@@ -1,14 +1,16 @@
+# importações django
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.messages import constants
 from django.http import HttpResponse, FileResponse
 from django.template.loader import render_to_string
 from django.conf import settings
 
+# importações Python
 from io import BytesIO
 from datetime import datetime, timedelta
 import os
 
+# importações de bibliotecas externas
+import sweetify
 from weasyprint import HTML
 
 from perfil.models import Categoria, Conta
@@ -51,9 +53,9 @@ def novo_valor(request):
         conta.save()
 
         if tipo == 'E': 
-            messages.add_message(request, constants.SUCCESS, "Entrada cadastrada com sucesso")
+            sweetify.success(request, 'Entrada cadastrada com sucesso')
         else: 
-            messages.add_message(request, constants.SUCCESS, "Saida cadastrada com sucesso")
+            sweetify.success(request, 'Saída cadastrada com sucesso')
 
         return redirect('/extrato/novo_valor')
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.messages import constants
+
+import sweetify
 
 from datetime import datetime
 from perfil.models import Categoria
@@ -29,7 +29,7 @@ def definir_contas(request):
             dia_pagamento = dia_pagamento,
         )
         conta.save()
-        messages.add_message(request, constants.SUCCESS, "Conta cadastrada com sucesso")
+        sweetify.success(request, 'Saída cadastrada com sucesso')
 
         return redirect('/contas/definir_contas')
 

@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib import messages
-from django.contrib.messages import constants
 from .models import Conta, Categoria
 from extrato.models import Valores
 from .utils import calcula_total, calcula_equilibrio_financeiro
 from datetime import datetime
+import sweetify
 
 
 def home(request):
@@ -51,7 +50,7 @@ def cadastrar_banco(request):
     icone = request.FILES.get('icone')
     
     if len(apelido.strip()) == 0 or len(valor.strip()) == 0:
-        messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
+        sweetify.error(request, 'Preencha todos os campos')
         return redirect('/perfil/gerenciar/')
     
     conta = Conta(
@@ -63,7 +62,7 @@ def cadastrar_banco(request):
     )
 
     conta.save()
-    messages.add_message(request, constants.SUCCESS, 'Conta cadastrada com sucesso')
+    sweetify.success(request, 'Conta cadastrada com sucesso')
 
     return redirect('/perfil/gerenciar/')
 
@@ -71,8 +70,8 @@ def cadastrar_banco(request):
 def deletar_banco(request, id):
     conta = Conta.objects.get(id=id)
     conta.delete()
-    
-    messages.add_message(request, constants.SUCCESS, 'Conta removida com sucesso')
+    sweetify.success(request, 'Conta removida com sucesso')
+
     return redirect('/perfil/gerenciar/')
 
 
@@ -81,7 +80,7 @@ def cadastrar_categoria(request):
     essencial = bool(request.POST.get('essencial'))
 
     if len(nome.strip()) == 0:
-        messages.add_message(request, constants.ERROR, 'Preencha o campo categoria') 
+        sweetify.error(request, 'Preencha o campo categoria')
         return redirect('/perfil/gerenciar/')
     
     categoria = Categoria(
@@ -89,7 +88,7 @@ def cadastrar_categoria(request):
         essencial = essencial,
     )
     categoria.save()
-    messages.add_message(request, constants.SUCCESS, 'Categoria cadastrada com sucesso')
+    sweetify.success(request, 'Categoria cadastrada com sucesso')
 
     return redirect('/perfil/gerenciar/')
 

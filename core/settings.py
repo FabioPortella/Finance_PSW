@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     'planejamento',
     'contas',
 
+    # Apps Terceiros
+    'sweetify',  # pip install sweetify
+
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
