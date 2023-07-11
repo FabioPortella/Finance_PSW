@@ -29,7 +29,7 @@ def definir_contas(request):
             dia_pagamento = dia_pagamento,
         )
         conta.save()
-        sweetify.success(request, 'Saída cadastrada com sucesso')
+        sweetify.success(request, 'Conta de consumo cadastrada com sucesso')
 
         return redirect('/contas/definir_contas')
 
